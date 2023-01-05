@@ -36,6 +36,7 @@ pub(crate) enum ErrorKind {
     InvalidIntegerString,
     InvalidRealString,
     UidNotSupportedInXmlPlist,
+    UnsupportedBinaryData,
 
     InvalidUtf8String,
 
@@ -49,6 +50,7 @@ pub(crate) struct FilePosition(pub(crate) u64);
 
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 pub(crate) enum EventKind {
+    StartArray,
     StartDictionary,
     EndCollection,
     Boolean,
@@ -145,6 +147,7 @@ impl ErrorKind {
 impl EventKind {
     pub fn of_event(event: &Event) -> EventKind {
         match event {
+            Event::StartArray(_) => EventKind::StartArray,
             Event::StartDictionary(_) => EventKind::StartDictionary,
             Event::EndCollection => EventKind::EndCollection,
             Event::Boolean(_) => EventKind::Boolean,
@@ -159,6 +162,7 @@ impl EventKind {
 impl fmt::Display for EventKind {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
+            EventKind::StartArray => "StartArray",
             EventKind::StartDictionary => "StartDictionary",
             EventKind::EndCollection => "EndCollection",
             EventKind::Boolean => "Boolean",
