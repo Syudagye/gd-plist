@@ -375,19 +375,19 @@ mod tests {
 <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
 <plist version=\"1.0\">
 <dict>
-.<k>Lines</k>
-.<d>
-..<k>_isArr</k>
-..<t/>
-..<k>k_0</k>
-..<s>It is a tale told by an idiot,</s>
-..<k>k_1</k>
-..<s>Full of sound and fury, signifying nothing.</s>
-.</d>
+...<k>Lines</k>
+...<d>
+......<k>_isArr</k>
+......<t/>
+......<k>k_0</k>
+......<s>It is a tale told by an idiot,</s>
+......<k>k_1</k>
+......<s>Full of sound and fury, signifying nothing.</s>
+...</d>
 </dict>
 </plist>";
 
-        let actual = events_to_xml(plist, XmlWriteOptions::default().with_indent(b'.', 1));
+        let actual = events_to_xml(plist, XmlWriteOptions::default().indent(b'.', 3));
 
         assert_eq!(actual, expected);
     }
